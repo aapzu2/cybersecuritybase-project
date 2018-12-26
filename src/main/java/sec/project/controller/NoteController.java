@@ -1,9 +1,10 @@
 package sec.project.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,14 +49,6 @@ public class NoteController {
         Note note = new Note(title, content, account);
         noteRepository.save(note);
         return "redirect:/list";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam String id) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createNativeQuery("DELETE NOTE WHERE ID = " + id);
-        query.executeUpdate();
-        return "redirect:/";
     }
 
     @RequestMapping(value = "/list")
