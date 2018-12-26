@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${note.title}"></title>
+    </head>
+    <body>
+        <p th:if="${note == null}">No note found</p>
+        <div th:if="${note != null}">
+            <h4 th:utext="${note.title}"></h4>
+            <div th:utext="${note.content}"></div>
+        </div>
+    </body>
+</html>

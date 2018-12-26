@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>All</title>
+    </head>
+    <body>
+        <h3>All notes</h3>
+        <ul>
+            <li th:each="note:${notes}" style="list-style-type: none">
+                <form th:action="@{/delete}" method="POST">
+                    <span th:utext="${note.title}"></span>
+                    <span th:utext="${note.content}"></span>
+                    <input type="hidden" th:value="${note.id}" name="id"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        </ul>
+        <a th:href="@{/add}">Add note</a>
+    </body>
+</html>
