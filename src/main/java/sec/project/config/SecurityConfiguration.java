@@ -20,12 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // no real security at the moment
-        http.authorizeRequests()
-                .anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().authenticated();
         http.csrf().disable();
-        http.formLogin()
-                .permitAll();
+        http.formLogin().permitAll();
     }
 
     @Autowired
@@ -35,7 +32,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new CustompasswordEncoder();
+    }
+
+    class CustompasswordEncoder implements PasswordEncoder {
+
+        @Override
+        public String encode(CharSequence charSequence) {
+            return charSequence.toString();
+        }
+
+        @Override
+        public boolean matches(CharSequence charSequence, String s) {
+            return charSequence.toString().equals(s);
+        }
     }
 
 }
