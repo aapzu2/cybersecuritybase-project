@@ -58,6 +58,12 @@ public class NoteController {
         return "list";
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable("id") String id) {
+        noteRepository.delete(id);
+        return "redirect:/list";
+    }
+
     @RequestMapping(value = "/show/{id}")
     public String show(@PathVariable("id") String id, Authentication authentication, Model model) {
         Account account = accountRepository.findByUsername(authentication.getName());
